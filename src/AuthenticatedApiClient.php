@@ -307,14 +307,16 @@ class AuthenticatedApiClient extends \GuzzleHttp\Client
 
     /**
      * @param string $name
+     * @param string $menu
      * @param string $newUrl
      * @param int $newId
      * @param int $newParent_id
-     * @param string $menu_Tiltle
+     * @param boolean $visible
      *
-     * @return array Brand
+     * @return array Category
+     * @throws ApiException
      */
-    public function createCategory($name, $menu ,$newUrl , $newId , $newParent_id)
+    public function createCategory($name, $menu ,$newUrl , $newId , $newParent_id, $visible = true )
     {
         try {
             $fields = [
@@ -322,7 +324,8 @@ class AuthenticatedApiClient extends \GuzzleHttp\Client
                 'id_parent' => $newParent_id,
                 'name' => $name,
                 'url' => $newUrl,
-                'menu_title' => $menu
+                'menu_title' => $menu,
+                'visible' => $visible
             ];
             $response = $this->post('category', [
                 'json' => $fields
