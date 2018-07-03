@@ -316,6 +316,7 @@ class AuthenticatedApiClient extends \GuzzleHttp\Client
      * @return array Category
      * @throws ApiException
      */
+    /*
     public function createCategory($name, $menu ,$newUrl , $newId , $newParent_id, $visible = true )
     {
         try {
@@ -336,6 +337,7 @@ class AuthenticatedApiClient extends \GuzzleHttp\Client
             throw new ApiException($e->getMessage(), $e->getRequest(), $e->getResponse());
         }
     }
+    */
 
     /**
      * @param int $brandId
