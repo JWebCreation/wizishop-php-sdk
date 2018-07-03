@@ -306,6 +306,35 @@ class AuthenticatedApiClient extends \GuzzleHttp\Client
     }
 
     /**
+     * @param string $name
+     * @param string $newUrl
+     * @param int $newId
+     * @param int $newParent_id
+     * @param string $menu_Tiltle
+     *
+     * @return array Brand
+     */
+    public function createCategory($name, $menu ,$newUrl , $newId , $newParent_id)
+    {
+        try {
+            $fields = [
+                'id' => $newId,
+                'id_parent' => $newParent_id,
+                'name' => $name,
+                'url' => $newUrl,
+                'menu_title' => $menu
+            ];
+            $response = $this->post('category', [
+                'json' => $fields
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch (RequestException $e) {
+            throw new ApiException($e->getMessage(), $e->getRequest(), $e->getResponse());
+        }
+    }
+
+    /**
      * @param int $brandId
      *
      * @return bool
