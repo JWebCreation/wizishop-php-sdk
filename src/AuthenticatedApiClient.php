@@ -327,6 +327,7 @@ class AuthenticatedApiClient extends \GuzzleHttp\Client
                 'menu_title' => $menu,
                 'visible' => $visible
             ];
+
             $response = $this->post('category', [
                 'json' => $fields
             ]);
@@ -337,6 +338,52 @@ class AuthenticatedApiClient extends \GuzzleHttp\Client
         }
     }
 
+    /**
+     * @param $class
+     * @return array Product
+     * @throws ApiException
+     */
+    public function createProduct($class)
+    {
+        try {
+            $fields = array(
+                'category_id' => $class->category_id,
+                'other_categories_id' => $class->other_categories_id,
+                'sku' => $class->sku,
+                'name' => $class->name,
+                'description' => $class->description,
+                'short_description' => $class->short_description,
+                'brand' => $class->brand,
+                'ean13' => $class->ean13,
+                'isbn' => $class->isbn,
+                'supplier' => $class->supplier,
+                'supplier_reference' => $class->supplier_reference,
+                'tags' => $class->tags,
+                'features' => $class->features,
+                'tax' => $class->tax,
+                'tax_id' => $class->tax_id,
+                'weight' => $class->weight,
+                'quantity' => $class->quantity,
+                'price_tax_excluded' => $class->price_tax_excluded,
+                'wholesale_price_tax_excluded' => $class->wholesale_price_tax_excluded,
+                'reduction' => $class->reduction,
+                'reduction_type' => $class->reduction_type,
+                'reduction_from' => $class->reduction_from,
+                'reduction_to' => $class->reduction_to,
+                'images' => $class->images,
+                'visible' => $class->visible,
+                'url' => $class->url
+            );
+
+            $response = $this->post('product', [
+                'json' => $fields
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch (RequestException $e) {
+            throw new ApiException($e->getMessage(), $e->getRequest(), $e->getResponse());
+        }
+    }
     /**
      * @param int $brandId
      *
