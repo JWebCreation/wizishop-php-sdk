@@ -16,7 +16,7 @@ class ApiClientFactory
      *
      * @return AuthenticatedApiClient
      */
-    public static function authenticate($username, $password, array $config = [])
+    public static function authenticate($username, $password, $shopId = NULL, array $config = [])
     {
         $client = new Client([
             'base_uri' => AuthenticatedApiClient::API_URL,
@@ -34,7 +34,7 @@ class ApiClientFactory
 
             $jwt = JWT::fromString($jsonResponse['token']);
 
-            $client = new AuthenticatedApiClient($jwt, $config);
+            $client = new AuthenticatedApiClient($jwt, $shopId, $config);
 
             return $client;
         } catch (RequestException $e) {
